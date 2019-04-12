@@ -14,8 +14,15 @@ android:
   - addon-google_apis-google-28
   - sys-img-armeabi-v7a-android-21
 before_install:
-- yes | sdkmanager "platforms;android-28"
-script: ./gradlew :app:build
+  - yes | sdkmanager "platforms;android-28"
+deploy:
+  provider: releases
+  apikey: $GITHUB_KEY
+  file: app/build/outputs/apk/release/app-release.apk
+  skip_cleanup: true
+  on:
+    tags: true
+script: ./gradlew :app:build :app:connectedDebugAndroidTest
 env:
   global:
   - MALLOC_ARENA_MAX=2
@@ -25,16 +32,9 @@ before_script:
 - emulator -avd test -no-audio -no-window &
 - adb wait-for-device
 - adb shell input keyevent 82 &
-deploy:
-  provider: releases
-  apikey: $GITHUB_KEY
-  file: app/build/outputs/apk/release/app-release.apk
-  skip_cleanup: true
-  on:
-tags: true
 notifications:
   email:
-  recipients:
-  - szabodora27@gmail.com
-  on_success: always
-  on_failure: always
+      recipients:
+      - szabodora27@gmail.com
+      on_success: always
+      on_failure: always
