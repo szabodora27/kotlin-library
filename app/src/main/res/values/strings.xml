@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">kotlin-library</string>
+    <string name="app_name">Library</string>
+    <string name="main_label">Library - Main</string>
+    <string name="details_label">Library - Details</string>
 </resources>
