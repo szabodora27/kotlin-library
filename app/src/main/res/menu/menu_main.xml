@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.example.kotlin_library.ui.main.MainActivity">
+    <item
+            android:id="@+id/refresh"
+            android:title="@string/refresh"
+            android:orderInCategory="100"
+            app:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/action_add"
+            android:title="@string/add"
+            android:orderInCategory="100"
+            app:showAsAction="ifRoom"/>
+</menu>

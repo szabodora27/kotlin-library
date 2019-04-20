@@ -8,6 +8,7 @@ import com.example.kotlin_library.ui.main.MainPresenter
 import dagger.Module
 import dagger.Provides
 import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 import javax.inject.Singleton
 
 @Module
@@ -24,9 +25,11 @@ class UIModule(private val context: Context) {
     @Singleton
     fun detailsPresenter(executor: Executor, booksInteractor: BooksInteractor) = DetailsPresenter(executor, booksInteractor)
 
-
     @Provides
     @Singleton
     fun createPresenter(executor: Executor, booksInteractor: BooksInteractor) = CreatePresenter(executor, booksInteractor)
 
+    @Provides
+    @Singleton
+    fun networkExecutor(): Executor = Executors.newFixedThreadPool(1)
 }
