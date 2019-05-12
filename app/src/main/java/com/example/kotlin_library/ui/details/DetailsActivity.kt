@@ -8,6 +8,7 @@ import com.example.kotlin_library.R
 import com.example.kotlin_library.injector
 import com.example.kotlin_library.model.db.BookDb
 import com.example.kotlin_library.ui.main.MainActivity.Companion.BOOK_ID
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
@@ -15,6 +16,7 @@ class DetailsActivity : AppCompatActivity(), DetailsScreen {
     @Inject
     lateinit var detailsPresenter: DetailsPresenter
     private val IMGURL_BASE = "https://libraryapi20190416104651.azurewebsites.net"
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,17 @@ class DetailsActivity : AppCompatActivity(), DetailsScreen {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         injector.inject(this)
+
+        initAnalytics()
+    }
+
+    private fun initAnalytics() {
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Libary")
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "DetailsActivity")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
     }
 
     override fun onStart() {

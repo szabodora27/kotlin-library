@@ -14,6 +14,7 @@ import com.example.kotlin_library.injector
 import com.example.kotlin_library.model.db.BookDb
 import com.example.kotlin_library.ui.create.CreateDialogFragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
 import github.nisrulz.recyclerviewhelper.RVHItemTouchHelperCallback
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -24,12 +25,15 @@ class MainActivity : AppCompatActivity(), MainScreen {
     lateinit var mainPresenter: MainPresenter
     private var books: MutableList<BookDb> = mutableListOf()
     private lateinit var adapter: MainAdapter
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         injector.inject(this)
+
+        initAnalytics()
 
         rv_books.layoutManager = LinearLayoutManager(this)
         adapter = MainAdapter(this, this.books, mainPresenter)
@@ -40,6 +44,15 @@ class MainActivity : AppCompatActivity(), MainScreen {
         )
         val helper = ItemTouchHelper(callback)
         helper.attachToRecyclerView(rv_books)
+    }
+
+    private fun initAnalytics() {
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Library")
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "MainActivity")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
     }
 
     override fun onStart() {
