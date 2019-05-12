@@ -18,5 +18,7 @@ data class Book (
     @SerializedName("numberOfPages")
     var numberOfPages: kotlin.Int? = null,
     @SerializedName("headline")
-    var headline: kotlin.String? = null
+    var headline: kotlin.String? = null,
+    @SerializedName("url")
+    var url: String? = null
 )

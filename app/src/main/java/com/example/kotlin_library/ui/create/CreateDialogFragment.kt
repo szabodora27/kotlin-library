@@ -10,6 +10,7 @@ import com.example.kotlin_library.R
 import com.example.kotlin_library.injector
 import com.example.kotlin_library.model.db.BookDb
 import kotlinx.android.synthetic.main.dialog_create.*
+import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -26,8 +27,13 @@ class CreateDialogFragment : DialogFragment(), CreateScreen {
 
         btn_save.setOnClickListener {
             val book = BookDb()
-            book.id = Random(565566).nextInt()
-            book.title = "TESTING"
+            book.id = Random.nextInt(5555, 555555555)
+            book.title = et_title.text.toString()
+            book.author = et_author.text.toString()
+            book.shortDescription = et_description.text.toString()
+            book.publishYear = if (et_publishYear.text.toString().isNotEmpty()) et_publishYear.text.toString().toInt() else 0
+            book.numberOfPages = if (et_numberOfPages.text.toString().isNotEmpty()) et_numberOfPages.text.toString().toInt() else 0
+
             createPresenter.addBook(book)
         }
     }

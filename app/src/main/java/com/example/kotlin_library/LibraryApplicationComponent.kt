@@ -1,5 +1,6 @@
 package com.example.kotlin_library
 
+import com.example.kotlin_library.db.DatabaseModule
 import com.example.kotlin_library.interactor.InteractorModule
 import com.example.kotlin_library.network.NetworkModule
 import com.example.kotlin_library.ui.UIModule
@@ -10,7 +11,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [UIModule::class, NetworkModule::class, InteractorModule::class])
+@Component(modules = [UIModule::class, NetworkModule::class, InteractorModule::class, DatabaseModule::class])
 interface LibraryApplicationComponent {
     fun inject(detailsActivity: DetailsActivity)
     fun inject(booksActivity: MainActivity)

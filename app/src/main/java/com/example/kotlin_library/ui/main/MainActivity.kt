@@ -40,8 +40,6 @@ class MainActivity : AppCompatActivity(), MainScreen {
         )
         val helper = ItemTouchHelper(callback)
         helper.attachToRecyclerView(rv_books)
-
-        mainPresenter.getBooks()
     }
 
     override fun onStart() {
@@ -49,9 +47,14 @@ class MainActivity : AppCompatActivity(), MainScreen {
         mainPresenter.attachScreen(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainPresenter.getBooks()
+    }
+
     override fun onStop() {
-        super.onStop()
         mainPresenter.detachScreen()
+        super.onStop()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -101,6 +104,6 @@ class MainActivity : AppCompatActivity(), MainScreen {
     }
 
     companion object {
-        const val SHOW_ID = "SHOW_ID"
+        const val BOOK_ID = "BOOK_ID"
     }
 }

@@ -1,11 +1,17 @@
 <resources>
-    <string name="app_name">Library</string>
-    <string name="main_label">Library - Main</string>
-    <string name="details_label">Library - Details</string>
-    <string name="loading">Loading...</string>
-    <string name="show_added">Show added.</string>
-    <string name="add">Add</string>
-    <string name="refresh">Refresh</string>
-    <string name="adding_a_new_book">Adding a new book.</string>
-    <string name="save">Save</string>
+    <string name="app_name">Könyv-tár</string>
+    <string name="main_label">Könyvek</string>
+    <string name="details_label">Könyv részletei</string>
+    <string name="adding_a_new_book">Új könyv hozzáadása</string>
+    <string name="loading">Töltés...</string>
+    <string name="add">Hozzáadás</string>
+    <string name="refresh">Frissítés</string>
+    <string name="show_added">Új könyv mentve.</string>
+    <string name="poster">Borítókép</string>
+    <string name="title">Cím</string>
+    <string name="author">Szerző</string>
+    <string name="publishYear">Megjelenés éve</string>
+    <string name="description">Leírás</string>
+    <string name="pages">Oldalszám</string>
+    <string name="save">Mentés</string>
 </resources>

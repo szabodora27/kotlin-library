@@ -14,13 +14,17 @@ import org.greenrobot.eventbus.EventBus
 import org.modelmapper.ModelMapper
 import javax.inject.Inject
 
-class BooksInteractor @Inject constructor(private var libraryApi: LibraryApi, private var context: Context) {
+class BooksInteractor @Inject constructor(
+    private var libraryApi: LibraryApi,
+    private var context: Context,
+    private var db: AppDatabase
+) {
 
     fun getBooks() {
         val event = GetBooksEvent()
 
         try {
-            val books = AppDatabase.getInstance(context).bookDao().getAllBook().toMutableList()
+            val books = db.bookDao().getAllBook().toMutableList()
             var bookDbList = mutableListOf<BookDb>()
 
             if (books.isEmpty()) {
@@ -53,7 +57,7 @@ class BooksInteractor @Inject constructor(private var libraryApi: LibraryApi, pr
         val event = GetBookEvent()
 
         try {
-            val book = AppDatabase.getInstance(context).bookDao().getBookById(id)
+            val book = db.bookDao().getBookById(id)
 
             event.code = 200
             event.book = book
@@ -65,20 +69,27 @@ class BooksInteractor @Inject constructor(private var libraryApi: LibraryApi, pr
     }
 
     fun addBook(book: BookDb) {
-        AppDatabase.getInstance(context).bookDao().insert(book)
+        db.bookDao().insert(book)
 
         val event = AddBookEvent(book = book)
         EventBus.getDefault().post(event)
     }
 
     fun removeBook(book: BookDb, position: Int) {
-        AppDatabase.getInstance(context).bookDao().deleteById(book.id!!)
+        db.bookDao().deleteById(book.id!!)
 
         val event = RemoveBookEvent(book = book, position = position)
         EventBus.getDefault().post(event)
     }
 
     private fun mapShow(book: Book) = ModelMapper().map(book, BookDb::class.java)
+
+    //private fun mapBook(book: Book): BookDb {
+    //    val sh = ModelMapper().map(book, BookDb::class.java)
+    //    val books = book.genres.map { it.name }.toString()
+    //    sh.books = books.substring(1, books.length - 1)
+    //    return sh
+    //}
 
     private fun getBookDetails(id: Int): Book {
         val tvShowsCall = libraryApi.getBookDetails(id)
@@ -93,7 +104,7 @@ class BooksInteractor @Inject constructor(private var libraryApi: LibraryApi, pr
 
     private fun saveBook(book: Book): BookDb {
         val showDb = mapShow(book)
-        AppDatabase.getInstance(context).bookDao().insert(showDb)
+        db.bookDao().insert(showDb)
         return showDb
     }
 }

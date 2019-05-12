@@ -1,6 +1,7 @@
 package com.example.kotlin_library
 
 import android.app.Application
+import com.example.kotlin_library.db.DatabaseModule
 import com.example.kotlin_library.ui.UIModule
 
 class LibraryApplication : Application() {
@@ -8,6 +9,10 @@ class LibraryApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        injector = DaggerLibraryApplicationComponent.builder().uIModule(UIModule(this)).build()
+
+        injector = DaggerLibraryApplicationComponent.builder()
+            .databaseModule(DatabaseModule(this))
+            .uIModule(UIModule(this))
+            .build()
     }
 }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "book")
 data class BookDb(
@@ -24,5 +25,7 @@ data class BookDb(
     @ColumnInfo(name = "numberOfPages")
     var numberOfPages: kotlin.Int? = null,
     @ColumnInfo(name = "headline")
-    var headline: kotlin.String? = null
+    var headline: kotlin.String? = null,
+    @SerializedName("url")
+    var url: String? = null
 )

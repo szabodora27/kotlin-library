@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.example.kotlin_library.dao.BookDao
 import com.example.kotlin_library.model.db.BookDb
 
-@Database(entities = [(BookDb::class)], version = 1, exportSchema = false)
+@Database(entities = [(BookDb::class)], version = 2, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
