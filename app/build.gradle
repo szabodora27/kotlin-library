@@ -17,10 +17,24 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            testCoverageEnabled true
+        }
+        debug {
+            testCoverageEnabled true
         }
     }
     lintOptions {
         abortOnError false
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 }
 
@@ -34,6 +48,7 @@ dependencies {
 
     implementation 'com.google.dagger:dagger:2.21'
     kapt 'com.google.dagger:dagger-compiler:2.21'
+    kaptTest 'com.google.dagger:dagger-compiler:2.21'
     api 'javax.annotation:jsr250-api:1.0'
 
     implementation "org.greenrobot:eventbus:3.1.1"
@@ -51,5 +66,13 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 
-    //debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    testImplementation 'org.robolectric:robolectric:4.2'
+    testImplementation  "org.mockito:mockito-core:2.23.4"
+
+    testImplementation 'com.google.dagger:dagger:2.21'
+    testImplementation 'javax.annotation:jsr250-api:1.0'
+
+    androidTestImplementation 'com.google.dagger:dagger:2.21'
+    kaptAndroidTest 'com.google.dagger:dagger-compiler:2.21'
+    androidTestImplementation 'javax.annotation:jsr250-api:1.0'
 }
